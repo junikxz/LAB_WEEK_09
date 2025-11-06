@@ -29,6 +29,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.example.lab_week_09.ui.theme.LAB_WEEK_09Theme
+import com.example.lab_week_09.ui.theme.OnBackgroundItemText
+import com.example.lab_week_09.ui.theme.OnBackgroundTitleText
+import com.example.lab_week_09.ui.theme.PrimaryTextButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +86,10 @@ fun HomeContent(listData: SnapshotStateList<Student>,
     LazyColumn {
         item {
             Column(modifier = Modifier.padding(16.dp).fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = stringResource(id = R.string.enter_item))
+                OnBackgroundTitleText(text = stringResource(
+                    id = R.string.enter_item)
+                )
+//                Text(text = stringResource(id = R.string.enter_item))
                 TextField(
                     value = inputField.name,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -91,18 +97,27 @@ fun HomeContent(listData: SnapshotStateList<Student>,
                         onInputValueChange(it)
                     },
                 )
-                Button(onClick = {  onButtonClick() }) {
-                    Text(text = stringResource(id = R.string.button_click))
+
+                PrimaryTextButton(text = stringResource(
+                    id = R.string.button_click)
+                ) {
+                    onButtonClick()
                 }
             }
         }
-        items(listData) {
-            item -> Column(modifier = Modifier.padding(vertical=4.dp).fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = item.name)
+        items(listData) { item ->
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 4.dp)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                OnBackgroundItemText(text = item.name)
+            }
         }
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable
